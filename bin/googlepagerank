@@ -1,0 +1,74 @@
+#!/usr/bin/ruby
+
+# == Synopsis 
+# 
+# Fetch the Google PageRank for a given url
+#
+# from command line
+# 
+# == 
+# 
+# googlepagerank [ -h | --help ] [ -s ] -u url
+# 
+# url:: 
+# String of a URL, +url+, for fetch
+
+# == Author 
+# Fran Diéguez
+# 
+# == Copyright 
+# Copyright (c) 2088 Fran Diéguez. 
+# Licensed under MIT License. 
+
+
+require "rubygems"
+require "googlepagerank"
+require "getoptlong"
+def usage
+	puts "Usage: googlepagerank [-h] [-s] -u domain.com "
+	puts "Options:\n";
+	puts "\t-h  help\n";
+	puts "\t-s  silent\n"
+end;
+opt_url=""
+opt_silent=0;
+
+port=80 # 80 World Wide Web HTTP
+proxy=nil; proxy_port=nil
+# proxy="10.1.4.1"; proxy_port=8080 # 8080  HTTP Alternate
+
+
+arg_parser=GetoptLong.new
+arg_parser.set_options(
+					   ["-h", "--help" , GetoptLong::NO_ARGUMENT],
+					   ["-s", "--silent" , GetoptLong::NO_ARGUMENT],
+					   ["-u", "--url", GetoptLong::REQUIRED_ARGUMENT]
+					   )
+arg_parser.each{|opt,arg|
+	begin
+		case opt
+		when "-h"; usage; exit;
+		when "-s"; opt_silent=1;
+		when "-u"; opt_url=arg;
+		end;
+	rescue => err; puts err; break
+	end
+}
+#puts "opt_silent= #{opt_silent}"
+#puts "opt_url= #{opt_url}"
+
+if opt_url.nil? or opt_url == ""
+  usage()
+else
+  if (opt_silent == 0) then
+  	rank = GooglePageRank.get(opt_url,port,proxy,proxy_port)
+  	if (rank >= 0) then
+  		printf("PageRank: %d : %s\n", rank, opt_url);
+  	else
+  		printf("PageRank: NO_INDEX : %s\n", opt_url);
+  	end
+  else
+  	printf("%d\n", GooglePageRank.get(opt_url));
+  end
+end
+exit(0);

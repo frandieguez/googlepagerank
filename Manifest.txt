@@ -1,0 +1,7 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/googlepagerank
+lib/googlepagerank.rb
+test/test_googlepagerank.rb

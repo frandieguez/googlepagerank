@@ -1,0 +1,18 @@
+=== 1.0.3 / 2008-05-17
+
+* Improved Rakefile
+
+=== 1.0.3 / 2008-05-17
+
+* A little modifications
+
+  * Refactoring
+  * Better Tests
+
+
+=== 1.0.0 / 2008-04-10
+
+* 1 major enhancement
+
+  * Birthday!
+
